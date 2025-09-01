@@ -1,0 +1,50 @@
+DESCRIÇÃO DO RACIOCÍNIO – GERADOR AUTOMÁTICO DE QUESTÕES
+-----------------------
+
+1. CONTEXTO
+De acordo com a solicitação, compreendeu-se que algumas perguntas de negócio deveriam ter sido respondidas previamente à execução do projeto.  
+Como se trata de um projeto de teste, essas questões foram respondidas de forma deliberada para que o escopo pudesse ser validado.
+-----------------------
+
+2. PERGUNTAS DE NEGÓCIO
+- Quem será o usuário final e como deve interagir com a solução?  
+  Os usuários finais são os professores da plataforma, que devem utilizá-la de forma intuitiva e simples.
+
+- Qual resultado concreto a solução deve gerar?  
+  A solução deve proporcionar facilidade e agilidade para os professores, além de garantir a qualidade do conteúdo entregue aos alunos.  
+  A proposta central é disponibilizar um painel integrado ao portal do professor, oferecendo rapidez e praticidade.
+
+- Qual é o produto e qual o comportamento esperado?  
+  O produto consiste em um gerador automático de questões de múltipla escolha.  
+  O professor fornece um conteúdo de referência (via upload de arquivos ou colagem/digitação direta) e, em seguida, define a quantidade de perguntas nos níveis fácil, médio e difícil.  
+  Após a geração, o professor visualiza uma prévia contendo as questões, alternativas, gabarito e uma breve explicação.  
+  * Se satisfatório, é gerado um arquivo TXT com todas as informações para download.  
+  * Caso não seja satisfatório, o professor pode ajustar o conteúdo e/ou o número de perguntas por nível e realizar nova geração.
+
+- Quais tipos de dados estão disponíveis?  
+  Atualmente, apenas dados em formato de texto escrito.
+
+- O que é essencial no MVP e quais ferramentas foram utilizadas?  
+  Considerando o prazo curto e a necessidade de entregar agilidade aos professores, optou-se por um MVP simples, com dois focos principais:  
+  1. Qualidade das questões geradas – utilizou-se a API do Groq com o modelo Llama 3.3 Versatile, de alta qualidade e bom custo-benefício.  
+  2. Experiência do usuário (professor) – foi adotado o Streamlit, por ser rápido de implementar e oferecer uma interface amigável e prática.
+-----------------------
+
+3. OBSERVAÇÕES TÉCNICAS
+- No modelo de LLM utilizou-se as roles de "system" e "user" e foi definida uma temperatura baixa no modelo, a fim de tornar os prompts mais seguros, evitar alucinações e manter aderência ao conteúdo fornecido.  
+- Optou-se por manter a chave da API no próprio código, em vez de configurar como variável de ambiente, para simplificar em caso de teste, já que ela foi criada exclusivamente para esta finalidade.
+-----------------------
+
+4. POSSÍVEIS MELHORIAS
+De negócio:
+- Fornecer suporte para conteúdos em formato de áudio e vídeo.
+- Permitir que o professor exclua questões indesejadas e solicite substituições, caso haja necessidade.
+- Permitir que o professor defina com mais precisão os temas do conteúdo a serem priorizados na geração das perguntas (competências, objetivos de aprendizagem etc), em vez de apenas selecionar a quantidade de questões por nível.
+- 
+- Alterar o output para enviar as questões diretamente ao banco de produção, disponibilizando-as automaticamente aos alunos.  
+- Incluir outros formatos de questão, como verdadeiro ou falso, jogos de arrastar, quis interativo etc.
+
+Técnicas:
+- Otimizar o tratamento de arquivos de input muito grandes.
+- Migrar para uma stack mais robusta (Ex.: FastAPI + React + Tailwind), visando melhor desempenho e escalabilidade.  
+- Implementar fila assíncrona para evitar travamentos em cenários de pico de acesso.  
