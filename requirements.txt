@@ -1,0 +1,7 @@
+streamlit
+pandas
+groq
+httpx
+python-docx
+PyPDF2
+openpyxl
